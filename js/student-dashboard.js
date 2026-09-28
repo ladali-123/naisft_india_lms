@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const localApi = new URLSearchParams(location.search).get('api');
   const API = ['localhost','127.0.0.1'].includes(location.hostname) && /^http:\/\/(localhost|127\.0\.0\.1):\d+\/api$/.test(localApi || '') ? localApi : (['localhost','127.0.0.1'].includes(location.hostname) ? (location.port === '5501' ? 'http://127.0.0.1:5050/api' : 'http://localhost:5000/api') : `${location.origin}/api`);
   const localApiSuffix = localApi ? '&api=' + encodeURIComponent(API) : '';
@@ -27,7 +27,7 @@
   });
 
   if (!token && !isDevMode) {
-    window.location.href = 'student-login.html';
+    window.location.href = '/student-login';
     return;
   }
 
@@ -76,7 +76,7 @@
   function logout() {
     localStorage.removeItem('naisft_token');
     localStorage.removeItem('naisft_student');
-    window.location.href = 'student-login.html?fresh=1';
+    window.location.href = '/student-login?fresh=1';
   }
 
   function showAlert(message, type) {
@@ -391,7 +391,7 @@
     const link = qs('registrationNoticeLink');
     if (link) {
       link.onclick = null;
-      link.href = appToken ? 'apply-online.html?token=' + encodeURIComponent(appToken) : 'apply-online.html';
+      link.href = appToken ? '/apply-online?token=' + encodeURIComponent(appToken) : '/apply-online';
       link.textContent = 'Complete Registration';
     }
 
@@ -404,7 +404,7 @@
       if (heading) heading.textContent = 'Registration correction needed';
       if (copy) copy.textContent = status.reviewNote || 'The center team requested changes. Please review your profile details and submit again.';
       if (link) {
-        link.href = appToken ? 'apply-online.html?token=' + encodeURIComponent(appToken) : 'apply-online.html';
+        link.href = appToken ? '/apply-online?token=' + encodeURIComponent(appToken) : '/apply-online';
         link.textContent = 'Update Registration';
       }
       return;
@@ -518,7 +518,7 @@
     if (cert) {
       const certificateToken = cert.verifyToken || '';
       const querySuffix = localApi ? '&api=' + encodeURIComponent(API) : '';
-      const verifyLink = (isDevMode ? 'certificate-verify.html' : 'certificate-record.html') + '?token=' + encodeURIComponent(certificateToken) + querySuffix;
+      const verifyLink = (isDevMode ? '/certificate-verify' : '/certificate-record') + '?token=' + encodeURIComponent(certificateToken) + querySuffix;
       const downloadLink = isDevMode
         ? 'output/pdf/sample-certificate.pdf?v=local-verified-1'
         : (certificateToken ? API + '/certificates/download/' + encodeURIComponent(certificateToken) + '?design=editable-svg-1' : '');
@@ -634,7 +634,7 @@
   function renderEnrolledCourses(enrollments) {
     if (!qs('enrollmentList')) return;
     if (!enrollments.length) {
-      qs('enrollmentList').innerHTML = '<div class="sd-empty">No enrolled courses yet. <a href="courses.html">Explore courses</a></div>';
+      qs('enrollmentList').innerHTML = '<div class="sd-empty">No enrolled courses yet. <a href="/courses">Explore courses</a></div>';
       return;
     }
 
@@ -643,7 +643,7 @@
       const status = String(enrollment.status || 'Pending');
       const canOpen = ['Active', 'Completed'].includes(status);
       const tagName = canOpen ? 'a' : 'div';
-      const href = canOpen ? ` href="student-course-player.html?courseId=${encodeURIComponent(course.id || '')}"` : '';
+      const href = canOpen ? ` href="/student-course-player?courseId=${encodeURIComponent(course.id || '')}"` : '';
       const lockText = status === 'Pending' ? 'Access opens after payment/admin activation' : 'Course access is currently unavailable';
       return `
         <${tagName} class="sd-enrollment-row ${canOpen ? '' : 'locked'}"${href}>
@@ -670,7 +670,7 @@
       return;
     }
 
-    const nextLessonUrl = `student-course-player.html?courseId=${encodeURIComponent(active.courseId)}${active.nextLesson ? '&lessonId=' + encodeURIComponent(active.nextLesson.id) : ''}`;
+    const nextLessonUrl = `/student-course-player?courseId=${encodeURIComponent(active.courseId)}${active.nextLesson ? '&lessonId=' + encodeURIComponent(active.nextLesson.id) : ''}`;
     qs('learningSummary').innerHTML = `
       <div class="sd-learning-course">
         <div>
@@ -701,7 +701,7 @@
           title: item.title,
           sub: [item.platform, item.teacherName].filter(Boolean).join(' / '),
           date: item.startsAt,
-          href: item.joinUrl || `student-course-player.html?courseId=${encodeURIComponent(course.courseId)}`,
+          href: item.joinUrl || `/student-course-player?courseId=${encodeURIComponent(course.courseId)}`,
           icon: 'fa-video',
           tone: 'live',
         });
@@ -715,7 +715,7 @@
             ? (item.submission.marks !== null && item.submission.marks !== undefined ? `Marks: ${item.submission.marks}/${item.maxMarks || 100}` : 'Submitted for review')
             : 'Submission pending',
           date: item.dueAt,
-          href: `student-course-player.html?courseId=${encodeURIComponent(course.courseId)}#assignments`,
+          href: `/student-course-player?courseId=${encodeURIComponent(course.courseId)}#assignments`,
           icon: submitted ? 'fa-clipboard-check' : 'fa-pen-to-square',
           tone: assignmentTone(item.submission),
         });
@@ -799,7 +799,7 @@
           <small>${escapeHtml(safeText(course.category && course.category.name, 'Course'))}</small>
           <h3>${escapeHtml(course.name)}</h3>
           <div class="sd-course-price-row"><em>${escapeHtml(safeText(course.duration))}</em><span>${amount(course.fee)}</span></div>
-          <a href="course-detail.html#id=${encodeURIComponent(course.id)}">View Details</a>
+          <a href="/course-detail#id=${encodeURIComponent(course.id)}">View Details</a>
         </div>
       </article>
     `).join('') || '<div class="sd-empty">No courses found.</div>';
@@ -929,7 +929,7 @@
   const dashboardPanelRoutes = ['documents', 'payments', 'certificate', 'identity-card'];
 
   function routeFromLocation() {
-    const match = window.location.pathname.match(/student-dashboard\.html\/([^/]+)/);
+    const match = window.location.pathname.match(/student-dashboard\/([^/]+)/);
     return match ? match[1] : 'dashboard';
   }
 
@@ -945,7 +945,7 @@
       const panelRoute = panel.id === 'identityCard' ? 'identity-card' : panel.id;
       panel.hidden = dashboardPanelRoutes.includes(route) && panelRoute !== route;
     });
-    if (updateUrl) window.history.pushState({ dashboardRoute: route }, '', `/student-dashboard.html/${route}`);
+    if (updateUrl) window.history.pushState({ dashboardRoute: route }, '', `//student-dashboard/${route}`);
   }
 
   document.querySelectorAll('[data-logout]').forEach((btn) => {

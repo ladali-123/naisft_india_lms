@@ -38,6 +38,6 @@
       document.getElementById('toggleVerifySound')?.addEventListener('click',(event)=>{const enabled=!soundEnabled();localStorage.setItem(soundPreferenceKey,enabled?'on':'off');event.currentTarget.textContent='Auto sound: '+(enabled?'On':'Off');});
     }catch(error){renderState('invalid','Identity card not verified',error.message||'The token is invalid or unavailable.');}
   }
-  form?.addEventListener('submit',(event)=>{event.preventDefault();const token=input.value.trim();history.replaceState({},'',token?'identity-card-verify.html?token='+encodeURIComponent(token):'identity-card-verify.html');verify(token);});
+  form?.addEventListener('submit',(event)=>{event.preventDefault();const token=input.value.trim();history.replaceState({},'',token?'/identity-card-verify?token='+encodeURIComponent(token):'/identity-card-verify');verify(token);});
   if(initial){input.value=initial;verify(initial);}
 })();

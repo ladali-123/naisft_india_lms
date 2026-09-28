@@ -132,7 +132,7 @@ document.getElementById('verifyForm')?.addEventListener('submit', async e => {
   const q     = input?.value.trim();
   if (!q) return;
   // Redirect to the dedicated verify page
-  window.location.href = `certificate-verify.html?q=${encodeURIComponent(q)}`;
+  window.location.href = `/certificate-verify?q=${encodeURIComponent(q)}`;
 });
 
 /* ── Enquiry form ────────────────────────────────────────────── */

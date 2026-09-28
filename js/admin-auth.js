@@ -2,7 +2,7 @@
   const params = new URLSearchParams(location.search);
   const localApi = params.get('api');
   const API = ['localhost','127.0.0.1'].includes(location.hostname) && /^http:\/\/(localhost|127\.0\.0\.1):\d+\/api$/.test(localApi || '') ? localApi : (['localhost','127.0.0.1'].includes(location.hostname) ? (location.port === '5501' ? 'http://127.0.0.1:5050/api' : 'http://localhost:5000/api') : `${location.origin}/api`);
-  const dashboardUrl = localApi ? `admin-dashboard.html?api=${encodeURIComponent(API)}` : 'admin-dashboard.html';
+  const dashboardUrl = localApi ? `/admin-dashboard?api=${encodeURIComponent(API)}` : '/admin-dashboard';
   const form = document.getElementById('adminLoginForm');
   const alertBox = document.getElementById('adminLoginAlert');
   const button = document.getElementById('adminLoginBtn');

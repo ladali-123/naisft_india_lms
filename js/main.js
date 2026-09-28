@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", syncHeader, { passive: true });
   }
 
-  const page = window.location.pathname.split("/").pop() || "index.html";
+  const page = window.location.pathname.split("/").pop() || "home";
   document.querySelectorAll(".main-nav a").forEach((link) => {
     const href = link.getAttribute("href");
-    if (href && !href.startsWith("#")) link.classList.toggle("active", href === page);
+    if (href && !href.startsWith("#")) link.classList.toggle("active", href.replace(/^\//, "") === page);
   });
 
   document.querySelectorAll("form.ajax-form").forEach((form) => {

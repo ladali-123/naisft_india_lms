@@ -5,10 +5,10 @@
   const isLocalHost = ['localhost', '127.0.0.1'].includes(location.hostname);
   const localTestEmail = 'local.student@naisft.test';
   const localTestPassword = 'LocalStudent@123';
-  const dashboardUrl = localApi ? `student-dashboard.html?api=${encodeURIComponent(API)}` : 'student-dashboard.html';
+  const dashboardUrl = localApi ? `/student-dashboard?api=${encodeURIComponent(API)}` : '/student-dashboard';
   const localDashboardUrl = localApi
-    ? `student-dashboard.html?dev=1&api=${encodeURIComponent(API)}`
-    : 'student-dashboard.html?dev=1';
+    ? `/student-dashboard?dev=1&api=${encodeURIComponent(API)}`
+    : '/student-dashboard?dev=1';
   const form = document.getElementById('studentLoginForm');
   const alertBox = document.getElementById('studentLoginAlert');
   const button = document.getElementById('studentLoginBtn');

@@ -88,7 +88,7 @@ function cardTemplate(category, course, index) {
         <p>${description}</p>
         <div class="course-footer">
           <div class="course-price"><span>Course Fee</span><strong>${meta.fee}</strong></div>
-          <a href="course-detail.html#course=${slug}">Course Details →</a>
+          <a href="/course-detail#course=${slug}">Course Details →</a>
         </div>
       </div>
     </article>`;

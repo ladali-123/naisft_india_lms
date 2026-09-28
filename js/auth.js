@@ -581,8 +581,8 @@ function onCourseChange() {
 }
 
 function viewCourseDetails() {
-  if (!state.selectedCourse) { window.open('courses.html', '_blank'); return; }
-  const url = `course-detail.html#name=${encodeURIComponent(state.selectedCourse.name)}`;
+  if (!state.selectedCourse) { window.open('/courses', '_blank'); return; }
+  const url = `/course-detail#name=${encodeURIComponent(state.selectedCourse.name)}`;
   window.open(url, '_blank');
 }
 
@@ -1439,7 +1439,7 @@ async function saveRegistrationDocuments() {
 async function handleContinueToFee() {
   if (!apiAuthHeaders().Authorization) {
     alert('Please log in again before submitting your registration profile.');
-    window.location.href = 'student-login.html';
+    window.location.href = '/student-login';
     return;
   }
 

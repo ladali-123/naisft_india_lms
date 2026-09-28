@@ -25,7 +25,7 @@
   });
 
   if (!token && !isDevMode) {
-    window.location.href = 'admin-login.html';
+    window.location.href = '/admin-login';
     return;
   }
 
@@ -53,7 +53,7 @@
   function logout() {
     localStorage.removeItem('naisft_admin_token');
     localStorage.removeItem('naisft_admin');
-    window.location.href = 'admin-login.html?fresh=1';
+    window.location.href = '/admin-login?fresh=1';
   }
 
   function showAlert(message, type) {
@@ -1329,7 +1329,7 @@
 
   function certificateLink(token) {
     const origin = window.location.origin || 'https://naisftindia.com';
-    return origin + '/certificate-verify.html?token=' + encodeURIComponent(token || '') + localApiSuffix;
+    return origin + '//certificate-verify?token=' + encodeURIComponent(token || '') + localApiSuffix;
   }
 
   function certificateDownloadLink(token) {
@@ -1586,7 +1586,7 @@
 
       <div class="admin-detail-section" id="identity-cards">
         <h3>Student identity card</h3>
-        ${identityCards.length ? identityCards.map((card) => `<div class="admin-cert-row"><strong>${escapeHtml(card.cardNumber)}</strong><span>${escapeHtml(card.status)} · expires ${escapeHtml(formatDate(card.expiresAt))}</span><div class="admin-cert-actions"><a href="identity-card-verify.html?token=${encodeURIComponent(card.verifyToken)}${localApiSuffix}" target="_blank" rel="noopener">Verify</a><a href="${API}/identity-cards/download/${encodeURIComponent(card.verifyToken)}" target="_blank" rel="noopener">View Card</a>${card.status === 'ACTIVE' ? `<button class="danger" type="button" data-revoke-identity-card="${card.id}">Revoke</button><button type="button" data-replace-identity-card="${card.id}">Replace</button>` : ''}</div></div>`).join('') : '<div class="admin-empty-inline">No identity card issued.</div>'}
+        ${identityCards.length ? identityCards.map((card) => `<div class="admin-cert-row"><strong>${escapeHtml(card.cardNumber)}</strong><span>${escapeHtml(card.status)} · expires ${escapeHtml(formatDate(card.expiresAt))}</span><div class="admin-cert-actions"><a href="/identity-card-verify?token=${encodeURIComponent(card.verifyToken)}${localApiSuffix}" target="_blank" rel="noopener">Verify</a><a href="${API}/identity-cards/download/${encodeURIComponent(card.verifyToken)}" target="_blank" rel="noopener">View Card</a>${card.status === 'ACTIVE' ? `<button class="danger" type="button" data-revoke-identity-card="${card.id}">Revoke</button><button type="button" data-replace-identity-card="${card.id}">Replace</button>` : ''}</div></div>`).join('') : '<div class="admin-empty-inline">No identity card issued.</div>'}
         <button class="admin-secondary-btn" type="button" id="issueIdentityCardBtn" ${student.isVerified && !identityCards.some((card) => card.status === 'ACTIVE' && new Date(card.expiresAt) > new Date()) ? '' : 'disabled'}><i class="fa-solid fa-id-card"></i> Issue Identity Card</button>
       </div>
 

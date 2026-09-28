@@ -760,7 +760,7 @@
           if (verified.token) localStorage.setItem('naisft_token', verified.token);
           localStorage.removeItem('naisft_checkout_draft_token');
           showAlert('Payment successful. Admission record has been created.', 'success');
-          setTimeout(() => { window.location.href = 'student-dashboard.html'; }, 1200);
+          setTimeout(() => { window.location.href = '/student-dashboard'; }, 1200);
         } catch (err) {
           showAlert(err.message || 'Payment received but verification failed. Please contact support.', 'error');
         }

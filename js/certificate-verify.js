@@ -36,7 +36,7 @@
 
   function verifyUrl(token) {
     const origin = window.location.origin || 'https://naisftindia.com';
-    const path = window.location.pathname.replace(/[^/]*$/, 'certificate-record.html');
+    const path = window.location.pathname.replace(/[^/]*$/, '/certificate-record');
     return origin + path + '?token=' + encodeURIComponent(token);
   }
 
@@ -290,7 +290,7 @@
     event.preventDefault();
     const token = tokenInput()?.value.trim();
     if (token) {
-      const url = 'certificate-verify.html?token=' + encodeURIComponent(token);
+      const url = '/certificate-verify?token=' + encodeURIComponent(token);
       window.history.replaceState({}, '', url);
     }
     fetchCertificate(token);

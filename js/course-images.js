@@ -133,7 +133,7 @@
   function hydrateCourseCardImages(root) {
     const host = root || document;
     host.querySelectorAll('.course-card').forEach((card) => {
-      const link = card.querySelector('a[href*="course-detail.html#course="]');
+      const link = card.querySelector('a[href*="/course-detail#course="]');
       const slug = link ? new URL(link.href, location.href).hash.replace(/^#course=/, '') : '';
       const title = card.querySelector('h3')?.textContent || '';
       const image = get({ slug, title });

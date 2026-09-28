@@ -1,13 +1,26 @@
 Options -Indexes
 RewriteEngine On
 
+# Keep tokenless application requests blocked before clean URL rewrites.
+RewriteCond %{QUERY_STRING} !token=
+RewriteRule ^apply-online(?:\.html)?/?$ /home [R=302,L]
+
+# Redirect legacy HTML paths to their clean URLs.
+RewriteRule ^student-dashboard\.html/(dashboard|courses|documents|payments|certificate|identity-card)/?$ /student-dashboard/$1 [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+index\.html(?:[?\s]) [NC]
+RewriteRule ^index\.html$ /home [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+([A-Za-z0-9_-]+)\.html(?:[?\s]) [NC]
+RewriteRule ^([A-Za-z0-9_-]+)\.html$ /$1 [R=301,L]
+
 # Clean URLs
+RewriteRule ^home/?$ /index.html [L]
+RewriteRule ^student-dashboard/(dashboard|courses|documents|payments|certificate|identity-card)/?$ /student-dashboard.html [L]
 RewriteRule ^quick-apply/?$ /quick-apply.html [L]
 RewriteRule ^apply-online/?$ /apply-online.html [L]
 RewriteRule ^student-login/?$ /student-login.html [L]
 RewriteRule ^student-dashboard/?$ /student-dashboard.html [L]
 RewriteRule ^course-checkout/?$ /course-checkout.html [L]
 
-# Block direct access to apply-online.html (must come via token link)
-RewriteCond %{QUERY_STRING} !token=
-RewriteRule ^apply-online\.html$ /index.html [R=302,L]
+# Resolve any remaining extensionless page URL to its HTML file.
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([A-Za-z0-9_-]+)/?$ $1.html [L]

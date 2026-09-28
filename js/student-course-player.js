@@ -64,7 +64,7 @@
     }
 
     if (res.status === 401) {
-      if (!isDevMode) window.location.href = 'student-login.html';
+      if (!isDevMode) window.location.href = '/student-login';
       return null;
     }
     if (!res.ok || data.success === false) throw new Error(data.message || 'Request failed.');
@@ -271,10 +271,10 @@
         <h2>${isLocked ? 'Learning access is not active yet' : 'Course content could not load'}</h2>
         <p>${escapeHtml(isLocked ? 'This course is linked to your account, but the learning area opens only after payment confirmation and admin activation.' : (message || 'Please try again after checking the student login, API deployment and database migration.'))}</p>
         <div class="course-player-actions">
-          <a href="student-login.html"><i class="fa-solid fa-right-to-bracket"></i> Student login</a>
-          <a href="student-dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-          <a href="course-checkout.html${courseId ? '?courseId=' + encodeURIComponent(courseId) : ''}"><i class="fa-solid fa-credit-card"></i> Complete payment</a>
-          ${isDevMode ? '<a href="student-course-player.html?dev=1"><i class="fa-solid fa-flask"></i> Open demo mode</a>' : ''}
+          <a href="/student-login"><i class="fa-solid fa-right-to-bracket"></i> Student login</a>
+          <a href="/student-dashboard"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+          <a href="/course-checkout${courseId ? '?courseId=' + encodeURIComponent(courseId) : ''}"><i class="fa-solid fa-credit-card"></i> Complete payment</a>
+          ${isDevMode ? '<a href="/student-course-player?dev=1"><i class="fa-solid fa-flask"></i> Open demo mode</a>' : ''}
         </div>
       </article>
     `;
@@ -358,7 +358,7 @@
 
   async function loadPage() {
     if (!token && !isDevMode) {
-      window.location.href = 'student-login.html';
+      window.location.href = '/student-login';
       return;
     }
     if (!courseId && !isDevMode) {
