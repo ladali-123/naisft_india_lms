@@ -167,7 +167,7 @@
           throw new Error('Server error');
         }
       } catch {
-        message.textContent = 'Enquiry noted. Please also reach us at info@naisftindia.com or +91 98356 27522.';
+        message.textContent = 'Enquiry noted. Please also reach us at info@naisftindia.com or +91 72618 43285.';
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'Submit Enquiry <span>→</span>';

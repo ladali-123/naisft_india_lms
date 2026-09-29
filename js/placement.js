@@ -66,11 +66,11 @@
           placementForm.reset();
         } else {
           const body = await res.json().catch(() => ({}));
-          throw new Error(body.message || 'Server error. Please try again or call +91 98356 27522.');
+          throw new Error(body.message || 'Server error. Please try again or call +91 72618 43285.');
         }
       } catch (err) {
         formStatus.className = 'form-status error';
-        formStatus.textContent = err.message || 'Could not submit. Please call +91 98356 27522 or email info@naisftindia.com.';
+        formStatus.textContent = err.message || 'Could not submit. Please call +91 72618 43285 or email info@naisftindia.com.';
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
