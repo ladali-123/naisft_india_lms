@@ -1,5 +1,19 @@
 (() => {
 const COURSE_DATA = {
+  advanced: {
+    label: 'Advanced Diploma Programs',
+    fee: '₹26,500',
+    type: 'Advanced Diploma',
+    meta: ['Advanced Program', 'Specialized Track'],
+    tagClass: 'red',
+    courses: [
+      ['Advanced Diploma in Industrial Safety Engineering', 'Progress into advanced industrial safety concepts, risk control methods and workplace safety management.', 'adv-diploma-industrial-safety'],
+      ['Advanced Diploma in Fire & Industrial Safety Engineering', 'Advance your understanding of fire safety systems, industrial risk controls and safety management practice.', 'adv-diploma-fire-industrial-safety'],
+      ['Advanced Diploma in Oil & Gas Safety Engineering', 'Build deeper knowledge for managing risk, controls and safe operating practices in oil and gas environments.', 'adv-diploma-oil-gas-safety'],
+      ['Advanced Diploma in Drilling & Rig Safety Management', 'Strengthen advanced safety understanding for drilling operations, rig hazards and operational risk management.', 'adv-diploma-drilling-rig-safety'],
+      ['Advanced Diploma in Food Safety & Quality Management', 'Develop advanced knowledge across food safety systems, quality control and structured management practices.', 'adv-diploma-food-safety-quality']
+    ]
+  },
   diploma: {
     label: 'Diploma Programs',
     fee: '₹26,500',
@@ -12,20 +26,6 @@ const COURSE_DATA = {
       ['Diploma in Drilling & Rig Safety Management', 'Learn core safety concepts relevant to drilling, rig operations, hazard controls and worksite coordination.', 'diploma-drilling-rig-safety'],
       ['Diploma in Food Safety & Quality Management', 'Build knowledge of food safety practices, quality management, hygiene controls and compliance-oriented systems.', 'diploma-food-safety-quality'],
       ['Diploma in Industrial Safety Engineering', 'Develop broad practical understanding of industrial hazards, prevention, controls and safe work practices.', 'diploma-industrial-safety']
-    ]
-  },
-  advanced: {
-    label: 'Advanced Diploma Programs',
-    fee: '₹26,500',
-    type: 'Advanced Diploma',
-    meta: ['Advanced Program', 'Specialized Track'],
-    tagClass: 'red',
-    courses: [
-      ['Advanced Diploma in Fire & Industrial Safety Engineering', 'Advance your understanding of fire safety systems, industrial risk controls and safety management practice.', 'adv-diploma-fire-industrial-safety'],
-      ['Advanced Diploma in Oil & Gas Safety Engineering', 'Build deeper knowledge for managing risk, controls and safe operating practices in oil and gas environments.', 'adv-diploma-oil-gas-safety'],
-      ['Advanced Diploma in Drilling & Rig Safety Management', 'Strengthen advanced safety understanding for drilling operations, rig hazards and operational risk management.', 'adv-diploma-drilling-rig-safety'],
-      ['Advanced Diploma in Food Safety & Quality Management', 'Develop advanced knowledge across food safety systems, quality control and structured management practices.', 'adv-diploma-food-safety-quality'],
-      ['Advanced Diploma in Industrial Safety Engineering', 'Progress into advanced industrial safety concepts, risk control methods and workplace safety management.', 'adv-diploma-industrial-safety']
     ]
   },
   corporate: {
@@ -63,7 +63,7 @@ const COURSE_DATA = {
   }
 };
 
-const categoryOrder = ['diploma', 'advanced', 'corporate'];
+const categoryOrder = ['advanced', 'diploma', 'corporate'];
 const imageClasses = ['image-one', 'image-two', 'image-three', 'image-four', 'image-five'];
 const categorySelect = document.getElementById('categorySelect');
 const searchInput = document.getElementById('courseSearch');
@@ -78,10 +78,12 @@ function cardTemplate(category, course, index) {
   const imageClass = imageClasses[index % imageClasses.length];
   const image = window.NAISFT_COURSE_IMAGES?.get({ slug, title });
   const imageStyle = image ? ` style="background-image:linear-gradient(0deg,rgba(7,27,50,.12),rgba(7,27,50,.12)),url('${image}')"` : '';
-  const tagClass = meta.tagClass ? ` ${meta.tagClass}` : '';
+  const isPopular = title === 'Advanced Diploma in Industrial Safety Engineering';
+  const tagClass = isPopular ? ' popular' : (meta.tagClass ? ` ${meta.tagClass}` : '');
+  const tagLabel = isPopular ? 'POPULAR' : meta.type;
   return `
     <article class="course-card catalogue-home-card" data-title="${title.toLowerCase()}">
-      <div class="course-image ${imageClass}"${imageStyle}><span class="course-tag${tagClass}">${meta.type}</span></div>
+      <div class="course-image ${imageClass}"${imageStyle}><span class="course-tag${tagClass}">${tagLabel}</span></div>
       <div class="course-body">
         <div class="course-meta"><span>${meta.meta[0]}</span><span>${meta.meta[1]}</span></div>
         <h3>${title}</h3>
