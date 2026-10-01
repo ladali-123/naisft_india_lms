@@ -2186,21 +2186,39 @@ h2{font-size:clamp(46px,3.55vw,64px);line-height:1.01;letter-spacing:-2.5px;text
 
 
 /* ---------- Mobile: aur bada ---------- */
-@media (max-width:767px){
-  .signature-mobile-visual{
-    min-height:clamp(430px,58svh,520px);
+/* ===== Principal photo: fit inside hero (Desktop) ===== */
+/* ===== Principal photo: Desktop fit ===== */
+@media (min-width:1061px){
+  .hero-slide-signature .signature-hero-chairman{
+    left:50%;
+    bottom:0;
+    translate:-50% 0;
+    height:99%;          /* hero ki height ke hisaab se */
+    width:auto;          /* ratio automatic */
+    max-width:none;
+    object-fit:contain;
+    object-position:center bottom;
   }
-  .hero-slide-signature .signature-mobile-chairman{
-    width:min(168vw,660px);
-  }
-  .hero-slider.signature-active{
-    min-height:clamp(990px,132svh,1130px);
+
+  .signature-training-badge{
+    right:2%;
+    top:10%;
   }
 }
 
-@media (max-width:390px){
-  .hero-slider.signature-active{
-    min-height:1050px;
+@media (min-width:1061px) and (max-width:1360px){
+  .hero-slide-signature .signature-hero-chairman{
+    left:50%;
+    translate:-50% 0;
+    height:94%;
+    width:auto;
+  }
+}
+
+/* ===== Principal photo: Mobile thoda chhota ===== */
+@media (max-width:767px){
+  .hero-slide-signature .signature-mobile-chairman{
+    width:min(74vw,280px);   /* pehle: min(80vw,320px) */
   }
 }
 
