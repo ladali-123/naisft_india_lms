@@ -2218,7 +2218,7 @@ h2{font-size:clamp(46px,3.55vw,64px);line-height:1.01;letter-spacing:-2.5px;text
 /* ===== Principal photo: Mobile thoda chhota ===== */
 @media (max-width:767px){
   .hero-slide-signature .signature-mobile-chairman{
-    width:min(74vw,280px);   /* pehle: min(80vw,320px) */
+    width:min(76vw,280px);   /* pehle: min(80vw,320px) */
   }
 }
 
@@ -2253,3 +2253,15 @@ h2{font-size:clamp(46px,3.55vw,64px);line-height:1.01;letter-spacing:-2.5px;text
 
 @media (max-width: 992px) { .blog-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
 @media (max-width: 640px) { .blog-grid { grid-template-columns: 1fr; } .blog-head { margin-bottom: 28px; } }
+
+/* ===== Mobile: badge hide + principal center (Slide 1) ===== */
+@media (max-width:767px){
+  .hero-slide-signature .signature-mobile-badge{
+    display:none !important;
+  }
+
+  .hero-slide-signature .signature-mobile-chairman{
+    left:50% !important;
+    translate:-50% 0 !important;
+  }
+}
